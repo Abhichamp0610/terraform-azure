@@ -1,0 +1,42 @@
+# Executing the plan when the code is pushed to feature branch
+name: "Terraform-Plan-Infra-Plan"
+on:
+  push:
+    branches:
+      - feature1
+
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+    
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ">= 1.9"
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: terraform_mlops/
+
+      - name: Terraform validate
+        id: validate
+        run: terraform validate
+        working-directory: terraform_mlops/
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'push'
+        run: terraform plan -no-color
+        working-directory: terraform_mlops/
