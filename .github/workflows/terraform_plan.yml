@@ -1,4 +1,4 @@
-# Executing the plan when the code is pushed to feature branch
+# Executing the plan when the code is pushed to feature1 branch
 name: "Terraform-Plan-Infra-Plan"
 on:
   push:
