@@ -52,8 +52,11 @@ variable "vnet" {
   type        = string
 }
 
-variable "dns_zone" {
-  description = "existing private dns zone"
-  type = string
+variable "private_dns_zone" {
+  description = "provide the names for private endpoints"
+  type = object({
+    pvtedpt1 = optional(string, null)
+    pvtedpt2 = optional(string, null)
+  })
 }
 

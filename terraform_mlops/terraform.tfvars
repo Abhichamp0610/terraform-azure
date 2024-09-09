@@ -10,7 +10,7 @@ resource_group = {
 #resource_group_name = "test-rg"
 
 vnet = "terratestvnet01"
-dns_zone = "privatelink.api.azureml.ms"
+#dns_zone = "privatelink.api.azureml.ms"
 
 subnets = {
   pe_subnet = {
@@ -32,4 +32,7 @@ ml_private_endpoint_names = {
   name2 = "pe-backend-aml"
 }
 
-
+private_dns_zone = {
+  pvtedpt1 = "privatelink.api.azureml.ms"
+  pvtedpt2 = "privatelink.notebooks.azure.net"
+}
